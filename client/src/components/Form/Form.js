@@ -4,31 +4,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import FileBase from 'react-file-base64';
 
 import useStyles from './styles';
-import { createPost, updatePost } from '../../actions/posts';
+import { createOrder, updateOrder } from '../../actions/orders';
 
 const Form = ({ currentId, setCurrentId }) => {
-  const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
-  const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
+  const [orderData, setOrderData] = useState({ productName: '', orderQuantity: 0, creator: '', email: '', phoneNumber: '', selectedFile: '' });
+  const order = useSelector((state) => (currentId ? state.orders.find((message) => message._id === currentId) : null));
   const dispatch = useDispatch();
   const classes = useStyles();
 
   useEffect(() => {
-    if (post) setPostData(post);
-  }, [post]);
+    if (order) setOrderData(order);
+  }, [order]);
 
   const clear = () => {
     setCurrentId(0);
-    setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
+    setOrderData({ productName: '', orderQuantity: 0, creator: '', email: '', phoneNumber: '', selectedFile: '' });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (currentId === 0) {
-      dispatch(createPost(postData));
+      dispatch(createOrder(orderData));
       clear();
     } else {
-      dispatch(updatePost(currentId, postData));
+      dispatch(updateOrder(currentId, orderData));
       clear();
     }
   };
@@ -36,12 +36,13 @@ const Form = ({ currentId, setCurrentId }) => {
   return (
     <Paper className={classes.paper}>
       <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-        <Typography variant="h6">{currentId ? `Editing "${post.title}"` : 'Creating a Memory'}</Typography>
-        <TextField name="creator" variant="outlined" label="Creator" fullWidth value={postData.creator} onChange={(e) => setPostData({ ...postData, creator: e.target.value })} />
-        <TextField name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
-        <TextField name="message" variant="outlined" label="Message" fullWidth multiline rows={4} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
-        <TextField name="tags" variant="outlined" label="Tags (coma separated)" fullWidth value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })} />
-        <div className={classes.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div>
+        <Typography variant="h6">{currentId ? `Editing "${order.productName}"` : 'Creating a Order'}</Typography>
+        <TextField name="productName" variant="outlined" label="Product Name" fullWidth value={orderData.productName} onChange={(e) => setOrderData({ ...orderData, creator: e.target.value })} />
+        <TextField name="orderQuantity" variant="outlined" label="Order Quantity" fullWidth value={orderData.orderQuantity} onChange={(e) => setOrderData({ ...orderData, creator: e.target.value })} />
+        <TextField name="email" variant="outlined" label="Email" fullWidth value={orderData.email} onChange={(e) => setOrderData({ ...orderData, title: e.target.value })} />
+        <TextField name="phoneNumber" variant="outlined" label="Phone Number" fullWidth multiline rows={4} value={orderData.phoneNumber} onChange={(e) => setOrderData({ ...orderData, message: e.target.value })} />
+        <TextField name="creator" variant="outlined" label="Creator" fullWidth value={orderData.creator} onChange={(e) => setOrderData({ ...orderData, tags: e.target.value.split(',') })} />
+        <div className={classes.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setOrderData({ ...orderData, selectedFile: base64 })} /></div>
         <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
         <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
       </form>
