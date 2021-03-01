@@ -37,13 +37,13 @@ const Form = ({ currentId, setCurrentId }) => {
     <Paper className={classes.paper}>
       <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
         <Typography variant="h6">{currentId ? `Editing "${order.productName}"` : 'Creating a Order'}</Typography>
-        <TextField name="productName" variant="outlined" label="Product Name" fullWidth value={orderData.productName} onChange={(e) => setOrderData({ ...orderData, creator: e.target.value })} />
-        <TextField name="orderQuantity" variant="outlined" label="Order Quantity" fullWidth value={orderData.orderQuantity} onChange={(e) => setOrderData({ ...orderData, creator: e.target.value })} />
-        <TextField name="email" variant="outlined" label="Email" fullWidth value={orderData.email} onChange={(e) => setOrderData({ ...orderData, title: e.target.value })} />
-        <TextField name="phoneNumber" variant="outlined" label="Phone Number" fullWidth multiline rows={4} value={orderData.phoneNumber} onChange={(e) => setOrderData({ ...orderData, message: e.target.value })} />
-        <TextField name="creator" variant="outlined" label="Creator" fullWidth value={orderData.creator} onChange={(e) => setOrderData({ ...orderData, tags: e.target.value.split(',') })} />
+        <TextField name="productName" required variant="outlined" label="Product Name" fullWidth value={orderData.productName} onChange={(e) => setOrderData({ ...orderData, productName: e.target.value })} />
+        <TextField name="orderQuantity" required variant="outlined" label="Order Quantity" type="number" fullWidth value={orderData.orderQuantity} onChange={(e) => setOrderData({ ...orderData, orderQuantity: e.target.value })} />
+        <TextField name="email" variant="outlined" label="Email" fullWidth value={orderData.email} onChange={(e) => setOrderData({ ...orderData, email: e.target.value })} />
+        <TextField name="phoneNumber" variant="outlined" label="Phone Number" type="number" fullWidth rows={4} value={orderData.phoneNumber} onChange={(e) => setOrderData({ ...orderData, phoneNumber: e.target.value })} />
+        <TextField name="creator" variant="outlined" label="Creator" fullWidth value={orderData.creator} onChange={(e) => setOrderData({ ...orderData, creator: e.target.value })} />
         <div className={classes.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setOrderData({ ...orderData, selectedFile: base64 })} /></div>
-        <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
+        <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit Order</Button>
         <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
       </form>
     </Paper>
