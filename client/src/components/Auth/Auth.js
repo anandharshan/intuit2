@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Avatar, Button, Paper, Typography, Container } from '@material-ui/core';
+import { Avatar, Button, Paper, Container } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -35,7 +35,7 @@ const SignUp = () => {
           <LockOutlinedIcon />
         </Avatar>
         <GoogleLogin
-          clientId="652701912513-ce5au4qof9he22b0lfiuqn8h7gs2ha6q.apps.googleusercontent.com"
+          clientId="652701912513-pv5dj0d90t56skjglvvstdqeg3hg7h1i.apps.googleusercontent.com"
           render={(renderProps) => (
             <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} variant="contained">
               Google Sign In
